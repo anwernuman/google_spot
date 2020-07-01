@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Pay mWeb Integration </title>
+    <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>    
+</head>
+<style>
+
+button {
+    background-color: powderblue;
+    padding: 15px 32px;
+    font-size: 16px;
+}
+
+</style>
+<body>
+   <button id ="trigger-payment">Pay With Razorpay</button>
+
+</body>
+<script>
+ 
+ let rzp = new Razorpay({
+     key: 'rzp_live_b6tztvrLZbGXod' //Add your API Key here...
+     });
+    
+ const paymentData = {
+         amount: 100,
+         order_id:'order_F9CSSABxWiWuAz',
+         description: 'Test Description',
+         method: 'upi',
+         contact: +917019284852,
+         email: 'h22tswift@gmail.com',
+     //callback_url:'https://www.google.com',
+   //  redirect:'true'
+     };
+ document.querySelector('#trigger-payment').addEventListener('click', (e) => {
+
+     rzp.checkPaymentAdapter('microapps.gpay').then(() => {
+           alert('GPay Available');
+           rzp.createPayment(paymentData, {gpay: true})
+     }).catch(() => {
+          alert('GPay Unavailable');
+          paymentData.vpa = 'mayurmahale9@okhdfcbank';
+          rzp.createPayment(paymentData);
+})
+  e.preventDefault(); 
+
+ });
+    
+    
+
+</script>
+
+</html>
