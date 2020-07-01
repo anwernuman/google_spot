@@ -37,7 +37,7 @@ button {
 
      rzp.checkPaymentAdapter('microapps.gpay').then(() => {
            alert('GPay Available');
-           rzp.createPayment(paymentData, {gpay: true})
+           rzp.createPayment(paymentData, {microapps:{gpay: true}})
      }).catch(() => {
           alert('GPay Unavailable');
           paymentData.vpa = 'mayurmahale9@okhdfcbank';
