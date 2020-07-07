@@ -1,54 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Google Pay mWeb Integration </title>
-    <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>    
-</head>
-<style>
-
-button {
-    background-color: powderblue;
-    padding: 15px 32px;
-    font-size: 16px;
-}
-
-</style>
-<body>
-   <button id ="trigger-payment">Pay With Razorpay</button>
-
-</body>
-<script>
+<button id="rzp-button1">Pay</button>
+<script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>
+<script type="text/javascript">
+var razorpay = new Razorpay({
+  key: 'rzp_live_CH3tA4XTOKFDVH',
+  image: 'https://i.imgur.com/n5tjHFD.png',
+  callback_url: 'https://www.google.com',
+  redirect:true
+});
+var data = {
+    "amount":2900,
+    "order_id":"order_FBW61uKM7TZ538",
+    "contact":"+918128748239",
+    "email":"anwernuman@gmail.com",
+    "method":"wallet",
+    "wallet": "phonepeswitch",
+    //"bank":"ORBC",
+   // 'card[name]': 'Gaurav Kumar',
+  //  'card[number]': '4375518114367006',
+  //  'card[cvv]': '123',
+   // 'card[expiry_month]': '10',
+   // 'card[expiry_year]': '23',
+    //"provider":"zestmoney",
+    //"_[flow]": "intent",
+  //  "upi_provider": "google_pay",
+    "notes": 
+    {
+    "transaction_id": "Offers",
+    "order_id": 123
+    }
  
- let rzp = new Razorpay({
-     key: 'rzp_live_b6tztvrLZbGXod' //Add your API Key here...
-     });
-    
- const paymentData = {
-         amount: 100,
-         order_id:'order_F9CSSABxWiWuAz',
-         description: 'Test Description',
-         method: 'upi',
-         contact: +917019284852,
-         email: 'h22tswift@gmail.com',
-     //callback_url:'https://www.google.com',
-   //  redirect:'true'
-     };
- document.querySelector('#trigger-payment').addEventListener('click', (e) => {
-
-     rzp.checkPaymentAdapter('microapps.gpay').then(() => {
-           alert('GPay Available');
-           rzp.createPayment(paymentData, {microapps:{gpay: true}})
-     }).catch(() => {
-          alert('GPay Unavailable');
-          paymentData.vpa = 'mayurmahale9@okhdfcbank';
-          rzp.createPayment(paymentData);
-})
-  e.preventDefault(); 
-
- });
-    
-    
-
+  };
+document.getElementById('rzp-button1').onclick = function(e){
+  razorpay.createPayment(data);
+}
 </script>
-
-</html>
